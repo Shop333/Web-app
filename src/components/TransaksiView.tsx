@@ -408,13 +408,13 @@ export default function TransaksiView() {
                       <span>Telp: {settings?.store_phone}</span>
                     </div>
                     <div className="divider"></div>
-                    <div className="text-center bold" style="font-size: 13px;">SALINAN STRUK BELANJA</div>
+                    <div className="text-center bold" style={{ fontSize: '13px' }}>SALINAN STRUK BELANJA</div>
                     <div className="divider"></div>
                     <div className="meta-sec">
-                      Invoice: ${txDetails.invoice_number}<br />
-                      Tgl: ${new Date(txDetails.created_at || Date.now()).toLocaleString('id-ID')}<br />
-                      Kasir: ${txDetails.cashier_name}<br />
-                      Plg: ${txDetails.customer_name || 'Pelanggan Umum'}
+                      Invoice: {txDetails.invoice_number}<br />
+                      Tgl: {new Date(txDetails.created_at || Date.now()).toLocaleString('id-ID')}<br />
+                      Kasir: {txDetails.cashier_name}<br />
+                      Plg: {txDetails.customer_name || 'Pelanggan Umum'}
                     </div>
                     <div className="divider"></div>
                     <div className="bold item-row">
@@ -423,52 +423,52 @@ export default function TransaksiView() {
                       <span className="item-price">Total</span>
                     </div>
                     <div className="divider"></div>
-                    ${txDetails.items?.map((it: any) => `
-                      <div className="item-row">
-                        <span className="item-name">${it.product_name}</span>
-                        <span className="item-qty text-right">${it.quantity}x</span>
-                        <span className="item-price">${formatRupiah(it.subtotal)}</span>
+                    {txDetails.items?.map((it: any, idx: number) => (
+                      <div key={idx} className="item-row">
+                        <span className="item-name">{it.product_name}</span>
+                        <span className="item-qty text-right">{it.quantity}x</span>
+                        <span className="item-price">{formatRupiah(it.subtotal)}</span>
                       </div>
-                    `).join('')}
+                    ))}
                     <div className="divider"></div>
                     <div className="item-row">
                       <span>Subtotal</span>
-                      <span className="bold">${formatRupiah(txDetails.subtotal)}</span>
+                      <span className="bold">{formatRupiah(txDetails.subtotal)}</span>
                     </div>
-                    ${txDetails.discount > 0 ? `
+                    {txDetails.discount > 0 && (
                       <div className="item-row">
                         <span>Diskon</span>
-                        <span className="bold">-${formatRupiah(txDetails.discount)}</span>
+                        <span className="bold">-{formatRupiah(txDetails.discount)}</span>
                       </div>
-                    ` : ''}
-                    ${txDetails.tax > 0 ? `
+                    )}
+                    {txDetails.tax > 0 && (
                       <div className="item-row">
-                        <span>PPN (${txDetails.tax_rate || 11}%)</span>
-                        <span className="bold">${formatRupiah(txDetails.tax)}</span>
+                        <span>PPN ({txDetails.tax_rate || 11}%)</span>
+                        <span className="bold">{formatRupiah(txDetails.tax)}</span>
                       </div>
-                    ` : ''}
-                    <div className="bold item-row" style="font-size: 12px;">
+                    )}
+                    <div className="bold item-row" style={{ fontSize: '12px' }}>
                       <span>TOTAL</span>
-                      <span>${formatRupiah(txDetails.total)}</span>
+                      <span>{formatRupiah(txDetails.total)}</span>
                     </div>
                     <div className="divider"></div>
                     <div className="item-row">
                       <span>Metode</span>
-                      <span>${txDetails.payment_method.toUpperCase()}</span>
+                      <span>{txDetails.payment_method.toUpperCase()}</span>
                     </div>
                     <div className="item-row">
                       <span>Bayar</span>
-                      <span>${formatRupiah(txDetails.paid_amount)}</span>
+                      <span>{formatRupiah(txDetails.paid_amount)}</span>
                     </div>
-                    ${txDetails.change_amount > 0 ? `
+                    {txDetails.change_amount > 0 && (
                       <div className="item-row">
                         <span>Kembalian</span>
-                        <span>${formatRupiah(txDetails.change_amount)}</span>
+                        <span>{formatRupiah(txDetails.change_amount)}</span>
                       </div>
-                    ` : ''}
-                    <div className="divider" style="margin-top: 10px;"></div>
-                    <div className="text-center" style="font-size: 10px; margin-top: 6px;">
-                      ${settings?.receipt_footer}
+                    )}
+                    <div className="divider" style={{ marginTop: '10px' }}></div>
+                    <div className="text-center" style={{ fontSize: '10px', marginTop: '6px' }}>
+                      {settings?.receipt_footer}
                     </div>
                   </div>
                 </div>

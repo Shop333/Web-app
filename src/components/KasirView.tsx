@@ -955,10 +955,10 @@ export default function KasirView() {
                 </div>
                 <div className="divider"></div>
                 <div className="meta-sec">
-                  No: ${completedTx.invoice_number}<br />
-                  Tgl: ${new Date(completedTx.created_at || Date.now()).toLocaleString('id-ID')}<br />
-                  Kasir: ${completedTx.cashier_name || 'Admin'}<br />
-                  Plg: ${completedTx.customer_name || 'Pelanggan Umum'}
+                  No: {completedTx.invoice_number}<br />
+                  Tgl: {new Date(completedTx.created_at || Date.now()).toLocaleString('id-ID')}<br />
+                  Kasir: {completedTx.cashier_name || 'Admin'}<br />
+                  Plg: {completedTx.customer_name || 'Pelanggan Umum'}
                 </div>
                 <div className="divider"></div>
                 <div className="bold item-row">
@@ -967,52 +967,52 @@ export default function KasirView() {
                   <span className="item-price">Total</span>
                 </div>
                 <div className="divider"></div>
-                ${completedTx.items?.map((item: any) => `
-                  <div className="item-row">
-                    <span className="item-name">${item.product_name}</span>
-                    <span className="item-qty text-right">${item.quantity}x</span>
-                    <span className="item-price">${formatRupiah(item.subtotal)}</span>
+                {completedTx.items?.map((item: any, idx: number) => (
+                  <div key={idx} className="item-row">
+                    <span className="item-name">{item.product_name}</span>
+                    <span className="item-qty text-right">{item.quantity}x</span>
+                    <span className="item-price">{formatRupiah(item.subtotal)}</span>
                   </div>
-                `).join('')}
+                ))}
                 <div className="divider"></div>
                 <div className="item-row">
                   <span>Subtotal</span>
-                  <span className="bold">${formatRupiah(completedTx.subtotal)}</span>
+                  <span className="bold">{formatRupiah(completedTx.subtotal)}</span>
                 </div>
-                ${completedTx.discount > 0 ? `
+                {completedTx.discount > 0 && (
                   <div className="item-row">
                     <span>Diskon</span>
-                    <span className="bold text-right">-${formatRupiah(completedTx.discount)}</span>
+                    <span className="bold text-right">-{formatRupiah(completedTx.discount)}</span>
                   </div>
-                ` : ''}
-                ${completedTx.tax > 0 ? `
+                )}
+                {completedTx.tax > 0 && (
                   <div className="item-row">
-                    <span>PPN (${completedTx.tax_rate || 11}%)</span>
-                    <span className="bold text-right">${formatRupiah(completedTx.tax)}</span>
+                    <span>PPN ({completedTx.tax_rate || 11}%)</span>
+                    <span className="bold text-right">{formatRupiah(completedTx.tax)}</span>
                   </div>
-                ` : ''}
-                <div className="bold item-row" style="font-size: 13px;">
+                )}
+                <div className="bold item-row" style={{ fontSize: '13px' }}>
                   <span>TOTAL BEBAN</span>
-                  <span>${formatRupiah(completedTx.total)}</span>
+                  <span>{formatRupiah(completedTx.total)}</span>
                 </div>
                 <div className="divider"></div>
                 <div className="item-row">
                   <span>Metode</span>
-                  <span className="bold text-right">${completedTx.payment_method.toUpperCase()}</span>
+                  <span className="bold text-right">{completedTx.payment_method.toUpperCase()}</span>
                 </div>
                 <div className="item-row">
                   <span>Bayar</span>
-                  <span className="bold text-right">${formatRupiah(completedTx.paid_amount)}</span>
+                  <span className="bold text-right">{formatRupiah(completedTx.paid_amount)}</span>
                 </div>
-                ${completedTx.change_amount > 0 ? `
+                {completedTx.change_amount > 0 && (
                   <div className="item-row">
                     <span>Kembalian</span>
-                    <span className="bold text-right">${formatRupiah(completedTx.change_amount)}</span>
+                    <span className="bold text-right">{formatRupiah(completedTx.change_amount)}</span>
                   </div>
-                ` : ''}
-                <div className="divider" style="margin-top: 10px;"></div>
-                <div className="text-center" style="font-size: 10px; margin-top: 6px;">
-                  ${settings?.receipt_footer || 'Terima kasih telah berbelanja!'}
+                )}
+                <div className="divider" style={{ marginTop: '10px' }}></div>
+                <div className="text-center" style={{ fontSize: '10px', marginTop: '6px' }}>
+                  {settings?.receipt_footer || 'Terima kasih telah berbelanja!'}
                 </div>
               </div>
             </div>
