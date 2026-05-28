@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Kasir POS",
+  "description": "Sistem Point of Sale (POS) Kasir Lengkap dengan Laporan, Produk, Kategori, Pelanggan, dan Riwayat Transaksi menggunakan React dan SQLite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
